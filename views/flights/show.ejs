@@ -1,0 +1,84 @@
+<%- include('../partials/header') %>
+
+  <section id="show-page">
+    <h2>Flight Information</h2>
+    <div>Airline:  <%= flight.airline %> </div>
+    <div>Airports: <%= flight.airport %> </div>
+    <div>Flight No: <%= flight.flightNo %></div>
+    <div>Departs: <%= flight.departs %></div>
+    <div>Destination: <%= flight.destination %></div>
+  </section>
+
+  <br><br>
+  <h2>Destination</h2>
+  <form id="add-destination-form" method="POST" action="/flights/<%= flight._id %>/destinations/create">
+    <label>Airport</label>
+    <select name="airport">
+      <option value="AUS">AUS</option>
+      <option value="DFW">DFW</option>
+      <option value="DEN">DEN</option>
+      <option value="LAX">LAX</option>
+      <option value="SAN">SAN</option>
+    </select>
+    <br>
+    <label for="arrival">Arrival Date/Time:</label>
+    <input type="datetime-local" id="departs" name="arrival">
+    <br><br>
+      <source media="(min-width: )" srcset="">
+      <img src="" alt="">
+    </picture>
+    <input type="submit" value="Add Flight">
+  </form>
+
+  <br><br>
+  <table>
+    <thead>
+      <tr>
+        <th>Seat</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% tickets.forEach(function(r) { %>
+        <tr>
+          <td>
+            <%= r.seat %>
+          </td>
+          <td>
+            <%= r.price %>
+          </td>
+        </tr>
+        <% }); %>
+      
+    </tbody>
+  </table>
+ <br>
+
+  <% if (flight.destinations.length) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Airport</th>
+          <th>Arrival</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% flight.destinations.forEach(function(r) { %>
+          <tr>
+            <td>
+              <%= r.airport %>
+            </td>
+            <td>
+              <%= r.arrival %>
+            </td>
+          </tr>
+          <% }); %>
+      </tbody>
+    </table>
+    <% } else { %>
+      <h5></h5>
+      <% } %>
+
+<a href="/flights/<%= flight._id %>/tickets/new">Generate A New Ticket</a>
+
+ <%- include('../partials/footer') %>
